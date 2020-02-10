@@ -36,7 +36,8 @@ class RoomSpider(scrapy.Spider):
             )
 
     def parse(self, response):
-        yield {}
+        # scrapy complains if parse() isn't defined
+        pass
 
     def parse_room(self, response):
         bedroom_result = response.css("div::text").re(r"([0-9]+) bedrooms?")
