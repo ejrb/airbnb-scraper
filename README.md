@@ -1,6 +1,6 @@
 # airbnb-scraper
 
-Small project to scrape Airbnb listings.
+Small `scrapy` scraper to scrape Airbnb listings.
 
 Specification
 
@@ -27,6 +27,8 @@ Simply run `make install`
 
 `make run`
 
+
+Results are output to `export.json`
 
 ## Progress / Completion
 
