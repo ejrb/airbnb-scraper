@@ -5,15 +5,7 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-from itertools import chain, islice
 from scrapy import signals
-from scrapy_selenium import SeleniumRequest
-
-
-def chunks(iterable, size=10):
-    iterator = iter(iterable)
-    for first in iterator:
-        yield chain([first], islice(iterator, size - 1))
 
 
 class ScrapyAirbnbSpiderMiddleware(object):
@@ -38,15 +30,9 @@ class ScrapyAirbnbSpiderMiddleware(object):
     def process_spider_output(self, response, result, spider):
         # Called with the results returned from the Spider, after
         # it has processed the response.
-        print("here")
-        
         # Must return an iterable of Request, dict or Item objects.
-        merged = {}
         for i in result:
-            if isinstance(i, SeleniumRequest):
-                i = next(i)
-            merged.update(i)
-        yield merged
+            yield i
 
     def process_spider_exception(self, response, exception, spider):
         # Called when a spider or process_spider_input() method
@@ -66,7 +52,7 @@ class ScrapyAirbnbSpiderMiddleware(object):
             yield r
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        spider.logger.info("Spider opened: %s" % spider.name)
 
 
 class ScrapyAirbnbDownloaderMiddleware(object):
@@ -113,4 +99,4 @@ class ScrapyAirbnbDownloaderMiddleware(object):
         pass
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        spider.logger.info("Spider opened: %s" % spider.name)
